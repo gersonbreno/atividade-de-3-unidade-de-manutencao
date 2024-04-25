@@ -35,5 +35,7 @@ urlpatterns = [
     path("api/token-auth/", views.obtain_auth_token),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/list-available/', ParkingSpaceViewSet.as_view({'get': 'list_available_spaces'}), name='parking-spaces-list-available')
+ 
    
 ]+router.urls
