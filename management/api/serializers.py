@@ -21,7 +21,7 @@ class ParkingSpaceSerializer(ModelSerializer):
         model = ParkingSpace
         fields = "__all__"
 
-
+# adiconado reserva para os seriazes
 class ReservationSerializer(ModelSerializer):
     class Meta:
         model = Reservation

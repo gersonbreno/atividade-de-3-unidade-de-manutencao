@@ -76,6 +76,7 @@ class ParkingSpaceViewSet(ModelViewSet):
                 {"Info": "Not Authenticated User."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
+        # adcionadno o metdod para fazer o fitro pelo id do estaconamento
     @action(detail=False, methods=['get'], url_path='list-available')
     def list_available_spaces(self, request):
         # Obter o ID do estacionamento dos parâmetros da consulta
@@ -88,7 +89,7 @@ class ParkingSpaceViewSet(ModelViewSet):
             # Filtrar as vagas de estacionamento pertencentes ao estacionamento especificado
             parking_spaces = parking.spaces.all()
             
-            # Serializar as vagas de estacionamento
+      
             serializer = ParkingSpaceSerializer(parking_spaces, many=True)
             
             # Lista para armazenar informações sobre a disponibilidade de cada vaga
@@ -101,7 +102,7 @@ class ParkingSpaceViewSet(ModelViewSet):
                 space_data['is_available'] = is_available
                 available_spaces.append(space_data)
 
-            # Retornar os dados serializados com informações sobre a disponibilidade de cada vaga
+           
             return Response({"info": "Lista de vagas disponíveis", "data": available_spaces}, status=status.HTTP_200_OK)
 
         except Parking.DoesNotExist:
@@ -176,7 +177,7 @@ class ReservationViewSet(ModelViewSet):
         # Lógica para atualizar o status do espaço de estacionamento
         # Aqui você pode definir a lógica para atualizar o status do espaço de estacionamento com base na reserva criada
         pass
-
+#  aqui classe para cadastrar um nova resvar
 class ReservationViewSet(ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
@@ -204,8 +205,8 @@ class ReservationViewSet(ModelViewSet):
         # Construir a consulta para verificar se há reservas sobrepostas para o espaço de estacionamento
         reservations_query = Reservation.objects.filter(
             parking_space_id=parking_space_id,
-            start_time__lt=end_time,  # Verificar se a hora de início da reserva é anterior ao fim do novo período
-            end_time__gt=start_time  # Verificar se a hora de término da reserva é posterior ao início do novo período
+            start_time__lt=end_time,  
+            end_time__gt=start_time  
         )
         
         # Excluir a reserva atual (se existir) da consulta

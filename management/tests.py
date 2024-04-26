@@ -127,7 +127,7 @@ class ParkingSpaceTestCase(APITestCase):
 
     
     
-    
+    # novo metdodo de teste adcinado
     def test_list_available_spaces(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
         url = reverse("parking-spaces-list-available")
@@ -214,7 +214,7 @@ class TicketTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['data']['value'], self.parking.hour_price)
 
-
+# adicionado novo teste para reserva
 class ReservationTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="admin", password="admin123")
@@ -234,6 +234,6 @@ class ReservationTestCase(APITestCase):
         }
         # Cria uma reserva para o mesmo espaço de estacionamento e período de tempo
         self.client.post(url, data)
-        # Tenta criar a mesma reserva novamente
+        #Aqui ele  Tenta criar a mesma reserva novamente para conferir se esat retornando codico 400
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

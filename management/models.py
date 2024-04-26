@@ -13,6 +13,7 @@ class Parking(BaseModel):
     parking_name = models.CharField(max_length=100, default="Untitled Parking")
     hour_price = models.FloatField()
     num_spaces = models.IntegerField(default=0)
+    # novo metdodo criado para tipo especifico de vaga
     space_type = models.CharField(max_length=20, choices=PARKING_SPACE_CHOICES,  default='Convencional')
     class Meta:
         verbose_name = "Parking"
@@ -48,12 +49,11 @@ class Ticket(BaseModel):
     def __str__(self) -> str:
         return f'{self.id} | {self.model} | {self.license_plate} | {self.value}'
 
+# nova classe criada so para reserva 
 class Reservation(models.Model):
     parking_space = models.ForeignKey(ParkingSpace, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
-    # Se necessário, adicione mais campos para representar informações adicionais sobre a reserva
 
     def __str__(self):
         return f"Reservation for Parking Space {self.parking_space.cod}"
